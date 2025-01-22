@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:ngdemo22/core/services/log_service.dart';
 
 import '../../domain/repositories/gemini_talk_repository.dart';
 import '../datasources/remote/http_service.dart';
@@ -19,6 +20,7 @@ class GeminiTalkRepositoryImpl extends GeminiTalkRepository {
   @override
   Future<Either<String, String>> onTextAndImage(
       String text, String base64Image) async {
+    LogService.w(base64Image);
     try {
       var response = await Network.POST(Network.API_GEMINI_TALK, Network.paramsTextAndImage(text, base64Image));
       var geminiTalk = Network.parseGeminiTalk(response!);
